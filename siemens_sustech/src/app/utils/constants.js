@@ -10,11 +10,6 @@ const supplierC = {
 
 }
 
-const ProcessDatabase = {
-    PowderBedFusion: {
-
-    }
-}
 
 const supplierDatabase = {
     SupplierA: {
@@ -112,4 +107,39 @@ const MachineDatabase = {
         power_consumption:15,
     }
 }
- 
+
+const processDatabase = {
+    PowderBedFusion: {
+        Process: "Powder Bed Fusion",
+        ReusableMaterialFraction: 0.965
+    },
+    BinderJetting: {
+        Process: "Binder Jetting",
+        ReusableMaterialFraction: 0.96
+    }
+};
+
+const countryDatabase = {
+    UK: {
+        Country: "UK",
+        Distance: 1377,
+        CEM: 0.457
+    },
+    China: {
+        Country: "China",
+        Distance: 9066,
+        CEM: 0.766
+    }
+};
+
+const transportDatabase = {
+    Truck: {
+        Transport: "Truck",
+        EmissionFactor: 0.000153
+    },
+    Plane: {
+        Transport: "Plane",
+        EmissionFactor: 0.00108
+    }
+};
+
