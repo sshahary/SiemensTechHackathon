@@ -4,13 +4,19 @@ import { useState } from "react";
 
 const Form = () => {
   const [volume, setVolume] = useState("");
+  const [quantity, setQuantity] = useState("");
   const [material, setMaterial] = useState("");
   const [process, setProcess] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    let processing = 0;
+    let shipment = 0;
+    let end_of_life = 0;
+    let result = processing + shipment + end_of_life;
+    return (result);
   };
-  
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -18,7 +24,7 @@ const Form = () => {
     >
       <div className="flex flex-row items-center gap-3">
         <label className="block text-xl font-semibold text-white">
-          Volume of Material:
+          Volume:
         </label>
         <input
           type="number"
@@ -30,11 +36,24 @@ const Form = () => {
         />
       </div>
       <div className="flex flex-row items-center gap-3">
+        <label className="block text-xl font-semibold text-white">
+          Quantity:
+        </label>
+        <input
+          type="number"
+          id="quantity"
+          value={quantity}
+          onChange={(e) => setQuantity(e.target.value)}
+          className="mt-2 p-1 border rounded-md"
+          required
+        />
+      </div>
+      <div className="flex flex-row items-center gap-3">
         <label
           htmlFor="material"
           className="block mt-4 text-xl font-semibold text-white"
         >
-          Choice of Material:
+          Material:
         </label>
         <select
           id="material"
@@ -56,7 +75,7 @@ const Form = () => {
           htmlFor="process"
           className="block text-xl font-semibold font-medium text-white"
         >
-          Choice of Process:
+          Process:
         </label>
         <select
           id="process"
