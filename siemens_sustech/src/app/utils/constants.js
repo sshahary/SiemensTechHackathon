@@ -10,7 +10,48 @@ const supplierC = {
 
 }
 
+const ProcessDatabase = {
+    PowderBedFusion: {
 
+    }
+}
+
+const supplierDatabase = {
+    SupplierA: {
+        MachinePBF: "SLM_500_HL",
+        MachineBJ: "Jet_Fusion_3200",
+        Country: "UK",
+        TransportType: "Truck",
+        RecycledPortion: {
+            AlSi10Mg: 50,
+            PA12: 0.5,
+            SS316L: 60
+        },
+        Lifespan: 1.05,
+        EndOfLifePortion: {
+            AlSi10Mg: 20,
+            PA12: 0.3,
+            SS316L: 36
+        }
+    },
+    SupplierB: {
+        MachinePBF: "LASERTEC_30_SLM_2nd_Gen",
+        MachineBJ: "Jet_Fusion_3D_5210",
+        Country: "China",
+        TransportType: "Plane",
+        RecycledPortion: {
+            AlSi10Mg: 30,
+            PA12: 0,
+            SS316L: 37
+        },
+        Lifespan: 0.95,
+        EndOfLifePortion: {
+            AlSi10Mg: 10,
+            PA12: 0,
+            SS316L: 40
+        }
+    }
+};
 
 const MaterialDatabase = {
     AlSi10Mg: {
