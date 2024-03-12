@@ -1,16 +1,3 @@
-const supplierA = {
-
-}
-
-const supplierB = {
-
-}
-
-const supplierC = {
-
-}
-
-
 const supplierDatabase = {
     SupplierA: {
         MachinePBF: "SLM_500_HL",
@@ -24,7 +11,7 @@ const supplierDatabase = {
         },
         Lifespan: 1.05,
         EndOfLifePortion: {
-            AlSi10Mg: 20,
+            AlSi10Mg: 20    ,
             PA12: 0.3,
             SS316L: 36
         }
@@ -146,3 +133,39 @@ const transportDatabase = {
     }
 };
 
+const resultsData = [
+    {
+      country: "UK",
+      supplier: "Supplier A",
+      processing: 88.33,
+      shipment: 3.36,
+      endOfLife: 33.88,
+      total: 132.17,
+    },
+    {
+      country: "USA",
+      supplier: "Supplier B",
+      processing: 121.67,
+      shipment: 0.35,
+      endOfLife: 35.24,
+      total: 142.96,
+    },
+    {
+      country: "China",
+      supplier: "Supplier C",
+      processing: 55.17,
+      shipment: 156.07,
+      endOfLife: 30.27,
+      total: 301.89,
+    },
+  ];
+
+module.exports = {
+    supplierDatabase,
+    MaterialDatabase,
+    MachineDatabase,
+    processDatabase,
+    countryDatabase,
+    transportDatabase,
+    resultsData
+};

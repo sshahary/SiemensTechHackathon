@@ -1,30 +1,75 @@
-import Image from "next/image";
-import React from "react";
+"use client";
 
-const Card = ({ companyName, companyLocation, result }) => {
+import Image from "next/image";
+import React, {useState} from "react";
+
+// const Card = ({ companyName, companyLocation, result }) => {
+//   return (
+//     <div className="bg-transparent border- border rounded-md flex flex-col">
+//       <div className="flex flex-row justify-end">
+//         <span className="w-16 text-center text-white bg-orange-600-500 rounded-tr bg-red-600">
+//           ${result}
+//         </span>
+//       </div>
+//       <div className="flex items-center justify-center my-5">
+//         <Image
+//           src="/assets/logo.png"
+//           alt="Siemens logo"
+//           width={200}
+//           height={200}
+//           className="object-contain"
+//         />
+//       </div>
+//       <div className="flex flex-col gap-1/2 mx-5 my-5">
+//         <h1 className="text-white text-xl">{companyName}</h1>
+//         <h2 className="text-gray-400 text-m">{companyLocation}</h2>
+//       </div>
+//       <div className="flex items-center justify-center m-5">
+//         <button className="text-white bg-transparent rounded border-2 border-[#009999] p-4 hover:bg-slate-800">
+//           View Offer Details & Order
+//         </button>
+//       </div>
+//     </div>
+//   );
+// };
+
+const Card = ({ companyName, companyLocation, processing, shipment, endOfLife, total }) => {
+  const [showDetails, setShowDetails] = useState(false);
+
   return (
-    <div className="bg-transparent border- border rounded-md flex flex-col">
+    <div className="bg-gray-800 border border-gray-700 rounded-md flex flex-col p-4 m-2">
       <div className="flex flex-row justify-end">
-        <span className="w-16 text-center text-white bg-orange-600-500 rounded-tr bg-red-600">
-          ${result}
+        <span className="text-center text-white bg-red-600 rounded-tr-md py-1 px-3">
+          ${total.toFixed(2)} kgCO2e
         </span>
       </div>
       <div className="flex items-center justify-center my-5">
-        <Image
+        {/* Image component or img tag depending on your setup */}
+        <img
           src="/assets/logo.png"
-          alt="Siemens logo"
-          width={200}
-          height={200}
-          className="object-contain"
+          alt="Company logo"
+          width={100} // Tailwind doesn't directly control Image component props
+          height={100}
+          className="w-24 h-24 object-contain" // Adjust size as needed
         />
       </div>
-      <div className="flex flex-col gap-1/2 mx-5 my-5">
+      <div className="text-center mx-5 my-5">
         <h1 className="text-white text-xl">{companyName}</h1>
-        <h2 className="text-gray-400 text-m">{companyLocation}</h2>
+        <h2 className="text-gray-400">{companyLocation}</h2>
       </div>
+      {showDetails && (
+        <div className="text-white mx-5 my-3">
+          <p>Processing: {processing.toFixed(2)} kgCO2e</p>
+          <p>Shipment: {shipment.toFixed(2)} kgCO2e</p>
+          <p>End of Life: {endOfLife.toFixed(2)} kgCO2e</p>
+        </div>
+      )}
       <div className="flex items-center justify-center m-5">
-        <button className="text-white bg-transparent rounded border-2 border-[#009999] p-4 hover:bg-slate-800">
-          View Offer Details & Order
+        <button 
+          className="text-white bg-transparent rounded border border-[#009999] px-4 py-2 hover:bg-slate-700"
+          onClick={() => setShowDetails(!showDetails)}
+        >
+          {showDetails ? "Hide Details" : "View Offer Details & Order"}
         </button>
       </div>
     </div>

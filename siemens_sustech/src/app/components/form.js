@@ -1,10 +1,12 @@
 "use client";
 
 import {useState} from "react";
-import {calculateMassOfPart, calculateProcessingTime} from "../utils/calculate";
-import {Martian_Mono} from "next/font/google";
 
-const Form = () => {
+import {Martian_Mono} from "next/font/google";
+import {MaterialDatabase, supplierDatabase} from "../utils/constants";
+import {calculateEnvironmentalImpact} from "../utils/calculate";
+
+const Form = ({onSubmit}) => {
   const [volume, setVolume] = useState("");
   const [quantity, setQuantity] = useState("");
   const [material, setMaterial] = useState("");
@@ -12,43 +14,34 @@ const Form = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  
-  if (material === "AlSi10Mg")
-      materialDensity = MaterialDatabase.AlSi10Mg.density;
-  else if (material === "PA12")
-      materialDensity = MaterialDatabase.PA12.density;
-  else if (material === "SS316L")
-      materialDensity = MaterialDatabase.SS316L.density;
-
-  const supplierAImpact = calculateEnvironmentalImpact(supplierDatabase.SupplierA);
-  const supplierBImpact = calculateEnvironmentalImpact(supplierDatabase.SupplierB);
-
-  console.log(`Environmental impact for Supplier A: ${supplierAImpact}`);
-  console.log(`Environmental impact for Supplier B: ${supplierBImpact}`);
-
-    // let processing = 0;
-    // let shipment = 0;
-    // let end_of_life = 0;
-    // let materialDensity = 0;
-    // let max_print_speed = 0;
-    // if (material === "AlSi10Mg")
-    //     materialDensity = MaterialDatabase.AlSi10Mg.density;
-    // else if (material === "PA12")
-    //     materialDensity = MaterialDatabase.PA12.density;
-    // else if (material === "SS316L")
-    //     materialDensity = MaterialDatabase.SS316L.density;
-
-    // calculateMassOfPart(volume, quantity, materialDensity);
-    // calculateTotalCO2eq(volume, quantity, );
-
-    // let result = processing + shipment + end_of_life;
-    // return (result);
+    onSubmit();
+    // const environmentalImpact = calculateEnvironmentalImpact(
+    //   2000,
+    //   1,
+    //   "SS316L",
+    //   "PowderBedFusion"
+    // );
+    // console.log(environmentalImpact);
+    // const supplierAImpact = calculateEnvironmentalImpact(
+    //   supplierDatabase.SupplierA,
+    //   material,
+    //   volume,
+    //   quantity,
+    //   process
+    // );
+    // const supplierBImpact = calculateEnvironmentalImpact(
+    //   supplierDatabase.SupplierB,
+    //   material,
+    //   volume,
+    //   quantity,
+    //   process
+    // );
   };
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col  gap-5 justify-center w-1/3 items-start mx-8 my-14"
+      className="flex flex-col  gap-5 justify-center items-start my-14"
     >
       <div className="flex flex-row items-center gap-3">
         <label className="block text-xl font-semibold text-white">
