@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import {useState} from "react";
+import {calculateMassOfPart, calculateProcessingTime} from "../utils/calculate";
+import {Martian_Mono} from "next/font/google";
 
 const Form = () => {
   const [volume, setVolume] = useState("");
@@ -10,11 +12,37 @@ const Form = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let processing = 0;
-    let shipment = 0;
-    let end_of_life = 0;
-    let result = processing + shipment + end_of_life;
-    return (result);
+  
+  if (material === "AlSi10Mg")
+      materialDensity = MaterialDatabase.AlSi10Mg.density;
+  else if (material === "PA12")
+      materialDensity = MaterialDatabase.PA12.density;
+  else if (material === "SS316L")
+      materialDensity = MaterialDatabase.SS316L.density;
+
+  const supplierAImpact = calculateEnvironmentalImpact(supplierDatabase.SupplierA);
+  const supplierBImpact = calculateEnvironmentalImpact(supplierDatabase.SupplierB);
+
+  console.log(`Environmental impact for Supplier A: ${supplierAImpact}`);
+  console.log(`Environmental impact for Supplier B: ${supplierBImpact}`);
+
+    // let processing = 0;
+    // let shipment = 0;
+    // let end_of_life = 0;
+    // let materialDensity = 0;
+    // let max_print_speed = 0;
+    // if (material === "AlSi10Mg")
+    //     materialDensity = MaterialDatabase.AlSi10Mg.density;
+    // else if (material === "PA12")
+    //     materialDensity = MaterialDatabase.PA12.density;
+    // else if (material === "SS316L")
+    //     materialDensity = MaterialDatabase.SS316L.density;
+
+    // calculateMassOfPart(volume, quantity, materialDensity);
+    // calculateTotalCO2eq(volume, quantity, );
+
+    // let result = processing + shipment + end_of_life;
+    // return (result);
   };
 
   return (

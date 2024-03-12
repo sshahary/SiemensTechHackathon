@@ -50,18 +50,21 @@ const supplierDatabase = {
 
 const MaterialDatabase = {
     AlSi10Mg: {
+        name: "AlSi10Mg",
         density: 2.67,
         emissionFactor: 7.91,
         emissionFactorRecycling: 2.35,
         recycleFraction: 45,
     },
     PA12: {
+        name: "PA12",
         density: 1.02,
         emissionFactor: 7.62,
         emissionFactorRecycling: 2.6,
         recycleFraction: 0.7,
     },
     SS316L: {
+        name: "SS316L",
         density: 7.97,
         emissionFactor: 4.27,
         emissionFactorRecycling: 1.39,
