@@ -38,9 +38,12 @@ const Card = ({ companyName, companyLocation, processing, shipment, endOfLife, t
 
   return (
     <div className="bg-gray-800 border border-gray-700 rounded-md flex flex-col p-4 m-2">
-      <div className="flex flex-row justify-end">
-        <span className="font-bold text-center text-white bg-red-600 rounded-tr-md py-1 px-3">
-          {total.toFixed(2)}kg CO₂
+      <div className="flex flex-row justify-between">
+        <span className="font-semibold text-center text-white bg-[#FFD700] rounded-tl-md py-1 px-3">
+        400 $
+        </span>
+        <span className="font-semibold text-center text-white bg-red-600 rounded-tr-md py-1 px-3">
+        {Math.round(total)}kg CO₂
         </span>
       </div>
       <div className="flex items-center justify-center my-5">
