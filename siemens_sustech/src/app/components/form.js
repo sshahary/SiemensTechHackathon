@@ -15,27 +15,23 @@ const Form = ({onSubmit}) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit();
-    // const environmentalImpact = calculateEnvironmentalImpact(
-    //   2000,
-    //   1,
-    //   "SS316L",
-    //   "PowderBedFusion"
-    // );
-    // console.log(environmentalImpact);
-    // const supplierAImpact = calculateEnvironmentalImpact(
-    //   supplierDatabase.SupplierA,
-    //   material,
-    //   volume,
-    //   quantity,
-    //   process
-    // );
-    // const supplierBImpact = calculateEnvironmentalImpact(
-    //   supplierDatabase.SupplierB,
-    //   material,
-    //   volume,
-    //   quantity,
-    //   process
-    // );
+    const supplierAImpact = calculateEnvironmentalImpact(
+      volume,
+      quantity,
+      material,
+      process,
+      supplierDatabase.SupplierA,
+    );
+    const supplierBImpact = calculateEnvironmentalImpact(
+      volume,
+      quantity,
+      material,
+      process,
+      supplierDatabase.SupplierB,
+    );
+    // console.log({volume, quantity, material, process})
+    console.log(supplierAImpact);
+    console.log(supplierBImpact);
   };
 
   return (

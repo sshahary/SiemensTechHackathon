@@ -11,7 +11,8 @@ export const calculateEnvironmentalImpact = (
   volume,
   quantity,
   material,
-  process
+  process,
+  supplier,
 ) => {
   // Convert user input to the appropriate types
   const vol = parseFloat(volume);
@@ -21,41 +22,42 @@ export const calculateEnvironmentalImpact = (
   // Calculate mass of part
   const massOfPart = vol * qty * density * 0.001;
 
-  // Find the supplier and machine information based on the process
-  const supplier = Object.values(supplierDatabase).find((s) =>
-    s.RecycledPortion.hasOwnProperty(material)
-  );
-  const machine = MachineDatabase[supplier.MachinePBF]; // Assuming Powder Bed Fusion for simplicity
-  const country = countryDatabase[supplier.Country];
-  const processInfo = processDatabase[process];
+  // Getiing the machine name for the process.
+  let machineName;
+  if (process === "BinderJetting")
+    machineName = supplier.MachineBJ;
+  else if (process === "PowderBedFusion")
+    machineName = supplier.MachinePBF;
+  const machine = MachineDatabase[machineName];
 
-  // Calculate processing time
-  const processingTime = (vol * qty) / machine.max_print_speed;
+  // Getting suppliers country
+  const country = supplier.Country;
 
-  // Calculate Buy to Fly ratio
-  const buyToFlyRatio = machine.volume / vol / qty;
+  // Calculate Processing Time
+  const maxPrintSpeed = machine.max_print_speed;
+  const processTime = (volume * quantity) / maxPrintSpeed;
 
-  // Calculate CO2eq for Processing
-  const CO2eqProcessing =
-    machine.power_consumption * processingTime * country.CEM;
+  // Calculate Buy to Fly Ratio
+  const volumeOfMachine = machine.volume;
+  const buyToFlyRatio = volumeOfMachine / volume / quantity;
 
-  // Calculate CO2eq for Waste
-  const CO2eqWaste =
-    (1 - processInfo.ReusableMaterialFraction) *
-    (buyToFlyRatio - 1) *
-    massOfPart *
-    (1 - supplier.RecycledPortion[material] * 0.01) *
-    MaterialDatabase[material].emissionFactor;
+  // Calculate emmision for processing
+  const powerStandard = machine.power_consumption;
+  const countryEnergyMix = countryDatabase[country].CEM;
+  const processEmission = powerStandard * processTime * countryEnergyMix;
 
-  // Calculate total CO2eq for the Processing phase
-  const CO2eqTotalProcessing = CO2eqProcessing + CO2eqWaste;
+  // Calculate wasteEmission
+  const reusableFraction = processDatabase[process].ReusableMaterialFraction;
+  const emissionFactorMaterial = MaterialDatabase[material].emissionFactor;
+  const recyclePortion = supplier.RecycledPortion[material];
+  const wasteEmission = (1 - reusableFraction / 100) * (buyToFlyRatio - 1) * massOfPart * ((1 - recyclePortion / 100) * emissionFactorMaterial);
 
-  return {
-    massOfPart,
-    processingTime,
-    buyToFlyRatio,
-    CO2eqProcessing,
-    CO2eqWaste,
-    CO2eqTotalProcessing,
-  };
+  // Calculate processingEmission
+  const totalProcessEmission = processEmission + wasteEmission;
+
+  
+
+  return ({
+    totalProcessEmission
+  })
 };
