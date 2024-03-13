@@ -40,9 +40,11 @@ const Card = ({ companyName, companyLocation, processing, shipment, endOfLife, t
     <div className="bg-gray-800 border border-gray-700 rounded-md flex flex-col p-4 m-2">
       <div className="flex flex-row justify-between">
         <span className="font-semibold text-center text-white bg-[#FFD700] rounded-tl-md py-1 px-3">
-        400 $
+        {Math.floor(Math.random() * (999 - 100 + 1)) + 100} $
         </span>
-        <span className="font-semibold text-center text-white bg-red-600 rounded-tr-md py-1 px-3">
+        <span className={`font-bold text-center py-1 px-3 rounded-tr-md ${
+      total < 135 ? 'bg-[#009999] text-white' : 'bg-red-600 text-white'
+    }`}>
         {Math.round(total)}kg CO₂
         </span>
       </div>
