@@ -3,10 +3,10 @@
 import {useState} from "react";
 
 import {Martian_Mono} from "next/font/google";
-import {MaterialDatabase, supplierDatabase} from "../utils/constants";
+import {supplierDatabase} from "../utils/constants";
 import {calculateEnvironmentalImpact} from "../utils/calculate";
 
-const Form = ({onSubmit}) => {
+const Form = ({onSubmit, setResult}) => {
   const [volume, setVolume] = useState("");
   const [quantity, setQuantity] = useState("");
   const [material, setMaterial] = useState("");
@@ -14,24 +14,34 @@ const Form = ({onSubmit}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit();
-    const supplierAImpact = calculateEnvironmentalImpact(
+    supplierDatabase.SupplierA.result = calculateEnvironmentalImpact(
       volume,
       quantity,
       material,
       process,
       supplierDatabase.SupplierA,
     );
-    const supplierBImpact = calculateEnvironmentalImpact(
+    supplierDatabase.SupplierB.result = calculateEnvironmentalImpact(
       volume,
       quantity,
       material,
       process,
       supplierDatabase.SupplierB,
     );
-    // console.log({volume, quantity, material, process})
-    console.log(supplierAImpact);
-    console.log(supplierBImpact);
+    setResult([calculateEnvironmentalImpact(
+      volume,
+      quantity,
+      material,
+      process,
+      supplierDatabase.SupplierA), calculateEnvironmentalImpact(
+        volume,
+        quantity,
+        material,
+        process,
+        supplierDatabase.SupplierB)])
+    onSubmit();
+    // console.log(supplierDatabase.SupplierA)
+    // console.log(supplierDatabase.SupplierA.result);
   };
 
   return (

@@ -50,14 +50,33 @@ export const calculateEnvironmentalImpact = (
   const reusableFraction = processDatabase[process].ReusableMaterialFraction;
   const emissionFactorMaterial = MaterialDatabase[material].emissionFactor;
   const recyclePortion = supplier.RecycledPortion[material];
-  const wasteEmission = (1 - reusableFraction / 100) * (buyToFlyRatio - 1) * massOfPart * ((1 - recyclePortion / 100) * emissionFactorMaterial);
+  const wasteEmission = ((1 -reusableFraction) / 100) * (buyToFlyRatio - 1) * massOfPart * ((1 - (recyclePortion / 100)) * emissionFactorMaterial);
 
   // Calculate processingEmission
   const totalProcessEmission = processEmission + wasteEmission;
 
-  
+  // Calculate shipEmission
+  const distance = countryDatabase[country].Distance;
+  const transportEmissionFactor = transportDatabase[supplier.TransportType].EmissionFactor;
+  const lifeSpan = supplier.Lifespan;
+  const shipEmission = distance * transportEmissionFactor * massOfPart / lifeSpan;
 
-  return ({
-    totalProcessEmission
-  })
+  // Calculate End of Line
+  const eolPortionMaterial = supplier.EndOfLifePortion[material];
+  const recycleFraction = MaterialDatabase[material].recycleFraction;
+  const nonRecycledPartsEmission = (1 - eolPortionMaterial / 100) * (1 - recycleFraction / 100) * massOfPart * emissionFactorMaterial;
+  const recycledMaterialEmissionFactor =  MaterialDatabase[material].emissionFactorRecycling;
+  const recycledPartsEmission = (1 - eolPortionMaterial / 100) * (recycleFraction / 100) * massOfPart * recycledMaterialEmissionFactor;
+  const eolEmission = nonRecycledPartsEmission + recycledPartsEmission;
+
+  const totalEmission = totalProcessEmission + shipEmission + eolEmission;
+
+  const results = {
+    totalProcessEmission,
+    shipEmission,
+    eolEmission,
+    totalEmission
+  }
+
+  return (results);
 };

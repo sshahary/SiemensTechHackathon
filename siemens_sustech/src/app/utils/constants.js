@@ -1,5 +1,6 @@
-const supplierDatabase = {
+let supplierDatabase = {
     SupplierA: {
+        results:{},
         MachinePBF: "SLM_500_HL",
         MachineBJ: "Jet_Fusion_3200",
         Country: "UK",
@@ -17,6 +18,7 @@ const supplierDatabase = {
         }
     },
     SupplierB: {
+        result: {},
         MachinePBF: "LASERTEC_30_SLM_2nd_Gen",
         MachineBJ: "Jet_Fusion_3D_5210",
         Country: "China",
@@ -137,10 +139,10 @@ const resultsData = [
     {
       country: "UK",
       supplier: "Supplier A",
-      processing: 88.33,
-      shipment: 3.36,
-      endOfLife: 33.88,
-      total: 132.17,
+      processing: supplierDatabase.SupplierA.results.totalProcessEmission,
+      shipment: supplierDatabase.SupplierA.results.shipEmission,
+      endOfLife: supplierDatabase.SupplierA.results.eolEmission,
+      total: supplierDatabase.SupplierA.results.totalEmission,
     },
     {
       country: "USA",
@@ -149,14 +151,6 @@ const resultsData = [
       shipment: 0.35,
       endOfLife: 35.24,
       total: 142.96,
-    },
-    {
-      country: "China",
-      supplier: "Supplier C",
-      processing: 55.17,
-      shipment: 156.07,
-      endOfLife: 30.27,
-      total: 301.89,
     },
   ];
 

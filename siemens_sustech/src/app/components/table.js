@@ -1,6 +1,6 @@
 import {resultsData} from "../utils/constants";
 
-const ResultsTable = () => {
+const ResultsTable = (result) => {
   return (
     <div className="bg-gray-800 p-4 rounded-lg shadow">
       <h2 className="text-xl font-bold text-white mb-4">Results (kgCO2e)</h2>
@@ -21,12 +21,13 @@ const ResultsTable = () => {
               className="border-b border-gray-700 last:border-b-0"
               key={index}
             >
+              {console.log(result.result[index].eolEmission)}
               <td className="py-3 px-4">{row.country}</td>
               <td className="py-3 px-4">{row.supplier}</td>
-              <td className="py-3 px-4">{row.processing.toFixed(2)}</td>
-              <td className="py-3 px-4">{row.shipment.toFixed(2)}</td>
-              <td className="py-3 px-4">{row.endOfLife.toFixed(2)}</td>
-              <td className="py-3 px-4 font-bold">{row.total.toFixed(2)}</td>
+              <td className="py-3 px-4">{result.result[index].totalProcessEmission.toFixed(2)}</td>
+              <td className="py-3 px-4">{result.result[index].shipEmission.toFixed(2)}</td>
+              <td className="py-3 px-4">{result.result[index].eolEmission.toFixed(2)}</td>
+              <td className="py-3 px-4 font-bold">{result.result[index].totalEmission.toFixed(2)}</td>
             </tr>
           ))}
         </tbody>
