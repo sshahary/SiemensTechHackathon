@@ -37,9 +37,9 @@ const Card = ({ companyName, companyLocation, processing, shipment, endOfLife, t
   const [showDetails, setShowDetails] = useState(false);
 
   return (
-    <div className="bg-gray-800 border border-gray-700 rounded-md flex flex-col p-4 m-2">
+    <div className={`bg-gray-800 border border-gray-700 rounded-md flex flex-col p-4 m-2 ${total < 135 ? 'shadow-sm shadow-white' : ''}`}>
       <div className="flex flex-row justify-between">
-        <span className="font-semibold text-center text-white bg-[#FFD700] rounded-tl-md py-1 px-3">
+        <span className="font-semibold text-center text-white bg-[#ED7D31] rounded-tl-md py-1 px-3">
         {Math.floor(Math.random() * (999 - 100 + 1)) + 100} $
         </span>
         <span className={`font-bold text-center py-1 px-3 rounded-tr-md ${
